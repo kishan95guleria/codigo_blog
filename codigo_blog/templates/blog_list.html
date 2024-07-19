@@ -1,0 +1,69 @@
+<!-- templates/blog_list.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Blog List</h1>
+    <form method="GET" class="my-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search" value="{{ request.GET.q }}">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+    <div class="list-group">
+        {% for blog in blogs %}
+            <a href="{% url 'blog_detail' blog.pk %}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ blog.title }}</h5>
+                <p class="mb-1">{{ blog.published_date }}</p>
+                <p class="mb-1">{{ blog.content }}</p>
+                <div class="mt-2">
+                    {% for tag in blog.tags.all %}
+                        <span class="badge bg-secondary">{{ tag.name }}</span>
+                    {% empty %}
+                        <span class="badge bg-light text-dark">No Tags</span>
+                    {% endfor %}
+                </div>
+            </a>
+        {% empty %}
+            <p>No blogs available.</p>
+        {% endfor %}
+    </div>
+
+    {% if page_obj %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination my-4">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif%}
+</div>
+{% endblock content %}

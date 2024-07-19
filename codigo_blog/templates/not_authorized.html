@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %} Not Authorized{% endblock %}
+{% block content %}
+<style>
+    .main-wrapper {
+        background: #ededed;
+    }
+
+    .card-wrapper {
+        padding: 40px !important;
+        background: white;
+        box-shadow: 1px 1px 10px #d7d7d7;
+    }
+    .dashboard_btn {
+        background: #ff4560;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 20px;
+    }
+    .dashboard_btn:hover {
+        background: #fff;
+        color: #ff4560;
+        border-color: #ff4560;
+    }
+    .card-wrapper img {
+        height: 100px;
+        width: 100%;
+        object-fit: contain;
+    }
+</style>
+<div class="main-content pt-0 ps-0 pe-0 main-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-8 text-center default-page vh-100 align-items-center d-flex">
+                <div class="card border-0 text-center d-block card-wrapper">
+                    <img src="" alt="Unauthorized Image">
+                    <h1 class="fw-700 text-grey-900 display3-size display4-md-size">Unauthorized Access</h1>
+                    <p>We apologize for the inconvenience, but you are not authorized to visit this page. If you
+                        believe this is an error,please contact your account manager.</p>
+
+                    <a href="/blog_list" class="btn dashboard_btn btn-lg">Blog List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
